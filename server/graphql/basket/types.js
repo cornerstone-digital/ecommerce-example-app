@@ -2,8 +2,11 @@ import {
   GraphQLObjectType,
   GraphQLString,
   GraphQLFloat,
-  GraphQLList
+  GraphQLList,
+  GraphQLInt
 } from 'graphql';
+
+import queryString from 'querystring';
 
 import currencyTypes from '../currencies/types';
 import productTypes from '../products/types';
@@ -11,6 +14,31 @@ import productTypes from '../products/types';
 import currencyResolvers from '../currencies/resolvers';
 import productResolvers from '../products/resolvers';
 import basketResolvers from './resolvers';
+
+const BasketItemType = new GraphQLObjectType({
+  name: 'BasketItem',
+  fields: () => ({
+    id: { type: GraphQLString },
+    product: { 
+      type: productTypes.ProductType,
+      resolve(parentValue, args) {
+        return productResolvers.getProductById(parentValue.productId)
+          .then( response => response.data );
+      }
+    },
+    quantity: { type: GraphQLInt },
+    lineTotal: { 
+      type: GraphQLFloat,
+      resolve(parentValue, args) {
+        return productResolvers.getProductById(parentValue.productId)
+          .then( response => response.data )
+          .then((product) => {
+            return product.price * parentValue.quantity;
+          });
+      }
+    }
+  })
+})
 
 const BasketType = new GraphQLObjectType({
   name: 'Basket',
@@ -23,27 +51,42 @@ const BasketType = new GraphQLObjectType({
           .then( response => response.data );  
       }
     },
-    products: { 
-      type: new GraphQLList(productTypes.ProductType),
+    items: { 
+      type: new GraphQLList(BasketItemType),
       resolve(parentValue, args) {
-        return basketResolvers.getBasketProductsById(parentValue.id)
-          .then( response => response.data ); 
+          return basketResolvers.getBasketItemsByBasketId(parentValue.id)
+              .then( response => response.data );
       }
     },
     total: { 
       type: GraphQLFloat,
       resolve(parentValue, args) {
-        console.log(parentValue);
-        return basketResolvers.getBasketProductsById(parentValue.id)
+        return basketResolvers.getBasketItemsByBasketId(parentValue.id)
             .then( response => response.data )
-            .then( products => products.reduce((a, b) => {
-              return a + b.price;
-            }, 0));
+            .then( basketItems => {
+              const filters = {
+                id: []
+              };
+
+              basketItems.forEach(item => filters.id.push(item.productId));
+
+              return filters;
+            })
+            .then((filters) => {
+              return productResolvers.getProducts(filters)
+                .then(response => response.data); 
+            })
+            .then((products) => {
+              return products.reduce((a, b) => {
+                return a + b.price;
+              }, 0);
+            });
       } 
     }
   })
 });
 
 export default {
-  BasketType
+  BasketType,
+  BasketItemType
 };

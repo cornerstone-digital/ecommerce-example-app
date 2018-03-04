@@ -11,12 +11,17 @@ const getBasketById = (id) => {
   return axios.get(`http://localhost:4000/baskets/${id}`);
 };
 
-const getBasketProductsById = (id) => {
-  return axios.get(`http://localhost:4000/baskets/${id}/products`);
+const getBasketItemsByBasketId = (basketId) => {
+  return axios.get(`http://localhost:4000/basketItems?basketId=${basketId}`);
+};
+
+const getBasketItemByProductId = (basketId, productId) => {
+  return axios.get(`http://localhost:4000/basketItems?basketId=${basketId}&productId=${productId}`);  
 };
 
 export default {
   getBaskets,
   getBasketById,
-  getBasketProductsById 
+  getBasketItemsByBasketId,
+  getBasketItemByProductId
 }

@@ -4,7 +4,8 @@ import {
   GraphQLSchema,
   GraphQLFloat,
   GraphQLList,
-  GraphQLNonNull
+  GraphQLNonNull,
+  GraphQLInt
 } from 'graphql';
 
 import axios from 'axios';
@@ -59,7 +60,6 @@ const RootQuery = new GraphQLObjectType({
           const convestionRates = [];
           
           for (let key in response.data.quotes) {
-            console.log(key);
             convestionRates.push({
               id: uuid(),
               code: key,
@@ -101,6 +101,39 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parentValue, { basketId }) {
         return graphQL.mutations.deleteBasket(basketId)
+          .then(response => response.data);
+      }
+    },
+    addBasketItem: {
+      type: graphQL.types.BasketItemType,
+      args: {
+        basketId: { type: new GraphQLNonNull(GraphQLString) }, 
+        productId: { type: new GraphQLNonNull(GraphQLString) }, 
+        quantity: { type: new GraphQLNonNull(GraphQLInt) }  
+      },
+      resolve(parentValue, { basketId, productId, quantity }) {
+        return graphQL.mutations.addBasketItem(basketId, productId, quantity)
+          .then(response => response.data);
+      }
+    },
+    removeBasketItem: {
+      type: graphQL.types.BasketItemType,
+      args: {
+        basketItemId: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      resolve(parentValue, { basketItemId }) {
+        return graphQL.mutations.removeBasketItem(basketItemId)
+          .then(response => response.data);
+      }
+    },
+    changeBasketCurrency: {
+      type: graphQL.types.BasketType,
+      args: {
+        basketId: { type: new GraphQLNonNull(GraphQLString) },
+        currencyId: { type: new GraphQLNonNull(GraphQLString) }  
+      },
+      resolve(parentValue, { basketId, currencyId }) {
+        return graphQL.mutations.changeBasketCurrency(basketId, currencyId)
           .then(response => response.data);
       }
     }

@@ -57,5 +57,22 @@
       "symbol": "A$"
     }
   ],
-  "baskets": []
+  "baskets": [
+    {
+      "id": "1",
+      "currencyId": "2"
+    },
+    {
+      "id": "2",
+      "currencyId": "2"
+    }
+  ],
+  "basketItems": [
+    {
+      "id": "549759e5-1c91-4e7c-a197-ed3b34af08be",
+      "basketId": "1",
+      "productId": "1",
+      "quantity": 8
+    }
+  ]
 }

@@ -2,9 +2,7 @@ import axios from 'axios';
 import queryString from 'querystring';
 
 const getProducts = (filters) => {
-  const qs = queryString.stringify(filters);
-
-  return axios.get(`http://localhost:4000/products?${qs}`);
+  return axios.get(`http://localhost:4000/products?${queryString.stringify(filters)}`);
 };
 
 const getProductById = (id) => {
