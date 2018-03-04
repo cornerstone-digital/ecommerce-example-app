@@ -1,0 +1,13 @@
+{
+  "products": [
+    { "id": "1", "name": "Peas", "price": 0.95, "currencyId": "1" },
+    { "id": "2", "name": "Eggs", "price": 2.10, "currencyId": "1" },
+    { "id": "3", "name": "Milk", "price": 1.30, "currencyId": "1" },
+    { "id": "4", "name": "Beans", "price": 0.73, "currencyId": "1" }
+  ],
+  "currencies": [
+    { "id": "1", "name": "GBP", "code": "GPB" },
+    { "id": "2", "name": "USD", "code": "USD" }
+  ],
+  "baskets": []
+}

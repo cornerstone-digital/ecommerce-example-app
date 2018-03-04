@@ -1,0 +1,51 @@
+{
+  "name": "ecommerce-example-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:cornerstone-digital/ecommerce-example-app.git",
+  "author": "Martin Egan <martingegan@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start:client": "react-scripts start",
+    "build:client": "react-scripts build",
+    "test:client": "react-scripts test",
+    "start:api": "babel-node src/api",
+    "build:api": "",
+    "test:api": "",
+    "start": "concurrently \"yarn start:api\" \"yarn start:client\"",
+    "dev": "npx nodemon --exec yarn start"
+  },
+  "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-plugin-dotenv": "0.1.1",
+    "concurrently": "3.5.1",
+    "dotenv": "5.0.1",
+    "enzyme": "3.3.0",
+    "react-scripts": "1.1.1",
+    "react-test-renderer": "16.2.0"
+  },
+  "dependencies": {
+    "apollo-cache-redux": "0.1.0",
+    "apollo-client": "2.2.5",
+    "apollo-client-preset": "1.0.8",
+    "apollo-link-http": "1.5.2",
+    "bootstrap": "4.0.0",
+    "express": "4.16.2",
+    "graphql": "0.13.1",
+    "graphql-tag": "2.8.0",
+    "history": "4.7.2",
+    "nodemon": "1.17.1",
+    "prop-types": "^15.6.1",
+    "react": "^16.2.0",
+    "react-apollo": "2.0.4",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "react-router": "4.2.0",
+    "react-router-dom": "4.2.2",
+    "react-router-redux": "5.0.0-alpha.9",
+    "redux": "^3.7.2",
+    "redux-devtools-extension": "2.13.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "2.2.0"
+  }
+}
