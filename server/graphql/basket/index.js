@@ -1,5 +1,6 @@
 import basketTypes from './types';
 import basketResolvers from './resolvers';
+import basketMutations from './mutations';
 
 const types = {
   ...basketTypes
@@ -10,7 +11,7 @@ const resolvers = {
 };
 
 const mutations = {
-
+  ...basketMutations
 };
 
 export default {

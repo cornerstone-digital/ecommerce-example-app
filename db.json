@@ -1,18 +1,61 @@
 {
   "products": [
-    { "id": "1", "name": "Peas", "price": 0.95, "currencyId": "1" },
-    { "id": "2", "name": "Eggs", "price": 2.10, "currencyId": "1" },
-    { "id": "3", "name": "Milk", "price": 1.30, "currencyId": "1" },
-    { "id": "4", "name": "Beans", "price": 0.73, "currencyId": "1" }
+    {
+      "id": "1",
+      "name": "Peas",
+      "price": 0.95,
+      "currencyId": "1"
+    },
+    {
+      "id": "2",
+      "name": "Eggs",
+      "price": 2.1,
+      "currencyId": "1"
+    },
+    {
+      "id": "3",
+      "name": "Milk",
+      "price": 1.3,
+      "currencyId": "1"
+    },
+    {
+      "id": "4",
+      "name": "Beans",
+      "price": 0.73,
+      "currencyId": "1"
+    }
   ],
   "currencies": [
-    { "id": "1", "name": "British Pounds", "code": "GPB", "symbol": "£" },
-    { "id": "2", "name": "United States Dollar", "code": "USD", "symbol": "$" },
-    { "id": "3", "name": "Australian Dollar", "code": "AUD", "symbol": "A$" },
-    { "id": "4", "name": "Canadian Dollar", "code": "CAD", "symbol": "C$" },
-    { "id": "5", "name": "Euro", "code": "EUR", "symbol": "A$" }
+    {
+      "id": "1",
+      "name": "British Pounds",
+      "code": "GPB",
+      "symbol": "£"
+    },
+    {
+      "id": "2",
+      "name": "United States Dollar",
+      "code": "USD",
+      "symbol": "$"
+    },
+    {
+      "id": "3",
+      "name": "Australian Dollar",
+      "code": "AUD",
+      "symbol": "A$"
+    },
+    {
+      "id": "4",
+      "name": "Canadian Dollar",
+      "code": "CAD",
+      "symbol": "C$"
+    },
+    {
+      "id": "5",
+      "name": "Euro",
+      "code": "EUR",
+      "symbol": "A$"
+    }
   ],
-  "baskets": [
-    { "id": "1", "currencyId": "1", "productIds": ["1"], "total": 0 }
-  ]
+  "baskets": []
 }

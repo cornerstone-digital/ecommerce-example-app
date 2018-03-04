@@ -1,27 +1,29 @@
-const createBasket = () => {
+import axios from "axios";
+
+const createBasket = (basket) => {
+  return axios.post('http://localhost:4000/baskets', basket);
+};
+
+const deleteBasket = (basketId) => {
+  return axios.delete(`http://localhost:4000/baskets/${basketId}`);
+};
+
+const addProductToBasket = (basketId, product, quantity) => {
 
 };
 
-const deleteBasket = () => {
+const removeProductFromBasket = (basketId, productId) => {
 
 };
 
-const addProductToBasketById = (basketId, product) => {
-
-};
-
-const removeProductFromBasketById = (basketId, productId) {
-
-};
-
-const changeBasketCurrencyById = (basketId, currencyId) {
+const changeBasketCurrency = (basketId, currencyId) => {
 
 };
 
 export default {
   createBasket,
   deleteBasket,
-  addProductToBasketById,
-  removeProductFromBasketById,
-  changeBasketCurrencyById
+  addProductToBasket,
+  removeProductFromBasket,
+  changeBasketCurrency
 }

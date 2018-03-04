@@ -4,18 +4,12 @@ import {
   GraphQLSchema,
   GraphQLFloat,
   GraphQLList,
+  GraphQLNonNull
 } from 'graphql';
 
 import axios from 'axios';
 import uuid from 'uuid';
 import graphQL from './index';
-
-// const { ProductType } = graphQL.products.types;
-// const { BasketType } = graphQL.basket.types;
-// const { 
-//   ConversionResultType,
-//   ConversionRateType
-// } = graphQL.currencies.types;
 
 const basket = {
   id: uuid(),
@@ -37,8 +31,9 @@ const RootQuery = new GraphQLObjectType({
     },
     basket: {
       type: graphQL.types.BasketType,
-      resolve(parentValue, args, context) {
-        return graphQL.resolvers.getBasketById("1")
+      args: { id: { type: GraphQLString } },
+      resolve(parentValue, { id }) {
+        return graphQL.resolvers.getBasketById(id)
           .then( response => response.data );;
       }
     },
@@ -79,6 +74,40 @@ const RootQuery = new GraphQLObjectType({
   })
 });
 
+const mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: () => ({
+    createBasket: {
+      type: graphQL.types.BasketType,
+      args: {
+        currencyId: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      resolve(parentValue, { currencyId }) {
+        const basket = {
+          id: uuid(),
+          currencyId, 
+          "productIds": [],
+          "total": 0
+        };
+
+        return graphQL.mutations.createBasket(basket)
+          .then(response => response.data);
+      }
+    },
+    deleteBasket: {
+      type: graphQL.types.BasketType,
+      args: {
+        basketId: { type: new GraphQLNonNull(GraphQLString) } 
+      },
+      resolve(parentValue, { basketId }) {
+        return graphQL.mutations.deleteBasket(basketId)
+          .then(response => response.data);
+      }
+    }
+  })
+})
+
 export default new GraphQLSchema({
-  query: RootQuery
+  query: RootQuery,
+  mutation
 });
