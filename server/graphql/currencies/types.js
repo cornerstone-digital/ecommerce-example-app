@@ -4,16 +4,17 @@ import {
   GraphQLFloat
 } from 'graphql';
 
-export const CurrencyType = new GraphQLObjectType({
+const CurrencyType = new GraphQLObjectType({
   name: 'Currency',
   fields: () => ({
     id: { type: GraphQLString },
     name: { type: GraphQLString },
-    code: { type: GraphQLString }
+    code: { type: GraphQLString },
+    symbol: { type: GraphQLString }
   })
 });
 
-export const ConversionRateType = new GraphQLObjectType({
+const ConversionRateType = new GraphQLObjectType({
   name: 'ConversionRate',
   fields: () => ({
     id: { type: GraphQLString },
@@ -22,7 +23,7 @@ export const ConversionRateType = new GraphQLObjectType({
   })
 });
 
-export const ConversionQueryType = new GraphQLObjectType({
+const ConversionQueryType = new GraphQLObjectType({
   name: 'ConversionQuery',
   fields: {
     from: { type: GraphQLString },
@@ -31,10 +32,17 @@ export const ConversionQueryType = new GraphQLObjectType({
   }
 })
 
-export const ConversionResultType = new GraphQLObjectType({
+const ConversionResultType = new GraphQLObjectType({
   name: 'ConversionResult',
   fields: () => ({
     query: { type: ConversionQueryType },
     result: { type: GraphQLFloat }
   })
 });
+
+export default {
+  CurrencyType,
+  ConversionRateType,
+  ConversionQueryType,
+  ConversionResultType
+};

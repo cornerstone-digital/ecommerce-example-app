@@ -6,8 +6,13 @@
     { "id": "4", "name": "Beans", "price": 0.73, "currencyId": "1" }
   ],
   "currencies": [
-    { "id": "1", "name": "GBP", "code": "GPB" },
-    { "id": "2", "name": "USD", "code": "USD" }
+    { "id": "1", "name": "British Pounds", "code": "GPB", "symbol": "£" },
+    { "id": "2", "name": "United States Dollar", "code": "USD", "symbol": "$" },
+    { "id": "3", "name": "Australian Dollar", "code": "AUD", "symbol": "A$" },
+    { "id": "4", "name": "Canadian Dollar", "code": "CAD", "symbol": "C$" },
+    { "id": "5", "name": "Euro", "code": "EUR", "symbol": "A$" }
   ],
-  "baskets": []
+  "baskets": [
+    { "id": "1", "currencyId": "1", "productIds": ["1"], "total": 0 }
+  ]
 }

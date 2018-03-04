@@ -10,12 +10,12 @@ import axios from 'axios';
 import uuid from 'uuid';
 import graphQL from './index';
 
-const { ProductType } = graphQL.products.types;
-const { BasketType } = graphQL.basket.types;
-const { 
-  ConversionResultType,
-  ConversionRateType
-} = graphQL.currencies.types;
+// const { ProductType } = graphQL.products.types;
+// const { BasketType } = graphQL.basket.types;
+// const { 
+//   ConversionResultType,
+//   ConversionRateType
+// } = graphQL.currencies.types;
 
 const basket = {
   id: uuid(),
@@ -28,21 +28,22 @@ const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: () => ({
     product: {
-      type: ProductType,
+      type: graphQL.types.ProductType,
       args: { id: { type: GraphQLString } },
       resolve(parentValue, { id }) {
-        return axios.get(`http://localhost:4000/products/${id}`)
+        return graphQL.resolvers.getProductById(id)
           .then( response => response.data );
       }
     },
     basket: {
-      type: BasketType,
-      resolve(parentValue, args) {
-        return basket;
+      type: graphQL.types.BasketType,
+      resolve(parentValue, args, context) {
+        return graphQL.resolvers.getBasketById("1")
+          .then( response => response.data );;
       }
     },
     conversion: {
-      type: ConversionResultType,
+      type: graphQL.types.ConversionResultType,
       args: { from: { type: GraphQLString }, to: { type: GraphQLString }, amount: { type: GraphQLFloat}},
       resolve(parentValue, args) {
         return axios.get(`https://apilayer.net/api/convert?access_key=291d6a92d6db179a4f9561eb7b1ee925&from=${args.from}&to=${args.to}&amount=${args.amount}`)
@@ -55,7 +56,7 @@ const RootQuery = new GraphQLObjectType({
       }
     },
     conversionRates: {
-      type: new GraphQLList(ConversionRateType),
+      type: new GraphQLList(graphQL.types.ConversionRateType),
       args: { source: { type: GraphQLString }, currencies: { type: GraphQLString }},
       resolve(parentValue, args) {
         return axios.get(`http://apilayer.net/api/live?access_key=291d6a92d6db179a4f9561eb7b1ee925&source=${args.source}&currencies=${args.currencies}`)

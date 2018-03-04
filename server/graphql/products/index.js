@@ -1,16 +1,15 @@
-import { 
-  ProductType,
-} from './types';
+import productTypes from './types';
+import productResolvers from './resolvers';
 
-const types = {
-  ProductType
+export const types = {
+  ...productTypes
 }
 
-const resolvers = {
-
+export const resolvers = {
+  ...productResolvers
 };
 
-const mutations = {
+export const mutations = {
 
 };
 

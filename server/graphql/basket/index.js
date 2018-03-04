@@ -1,11 +1,12 @@
-import { BasketType } from './types';
+import basketTypes from './types';
+import basketResolvers from './resolvers';
 
 const types = {
-  BasketType
+  ...basketTypes
 }
 
 const resolvers = {
-
+  ...basketResolvers
 };
 
 const mutations = {

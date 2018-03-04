@@ -1,23 +1,17 @@
-import { 
-  CurrencyType,
-  ConversionRateType,
-  ConversionQueryType,
-  ConversionResultType
-} from './types';
+import currencyTypes from './types';
+import currencyResolvers from './resolvers';
+// import currencyMutations from './mutations';
 
-const types = {
-  CurrencyType,
-  ConversionRateType,
-  ConversionQueryType,
-  ConversionResultType
+export const types = {
+  ...currencyTypes
 }
 
-const resolvers = {
-
+export const resolvers = {
+  ...currencyResolvers
 };
 
-const mutations = {
-
+export const mutations = {
+  // ...currencyMutations
 };
 
 export default {

@@ -6,9 +6,7 @@
   "author": "Martin Egan <martingegan@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start:server": "nodemon --exec babel-node server/server.js",
-    "start:api": "json-server --watch db.json",
-    "start": "concurrently \"yarn start:api\" \"yarn start:server\""
+    "start": "nodemon --exec babel-node server/server.js"
   },
   "dependencies": {
     "axios": "0.18.0",
@@ -24,6 +22,7 @@
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
     "nodemon": "1.17.1"
   }
 }

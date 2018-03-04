@@ -5,46 +5,45 @@ import {
   GraphQLList
 } from 'graphql';
 
-import { CurrencyType } from '../currencies/types';
-import { ProductType } from '../products/types';
+import currencyTypes from '../currencies/types';
+import productTypes from '../products/types';
 
-export const BasketType = new GraphQLObjectType({
+import currencyResolvers from '../currencies/resolvers';
+import productResolvers from '../products/resolvers';
+import basketResolvers from './resolvers';
+
+const BasketType = new GraphQLObjectType({
   name: 'Basket',
   fields: () => ({
     id: { type: GraphQLString},
     currency: { 
-      type: CurrencyType,
+      type: currencyTypes.CurrencyType,
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:4000/currencies/${parentValue.currency}`)
+        return currencyResolvers.getCurrencyById(parentValue.currencyId)
           .then( response => response.data );  
       }
     },
     products: { 
-      type: new GraphQLList(ProductType),
+      type: new GraphQLList(productTypes.ProductType),
       resolve(parentValue, args) {
-        let qsItems = [];
-        parentValue.products.forEach(product => {
-          qsItems.push(`id=${product.id}`);
-        }) 
-
-        const qs = qsItems.join('&');
-        
-        return axios.get(`http://localhost:4000/products?${qs}`)
-          .then( response => {
-            basket.products = response.data;
-            return response.data
-          });
+        return basketResolvers.getBasketProductsById(parentValue.id)
+          .then( response => response.data ); 
       }
     },
     total: { 
       type: GraphQLFloat,
       resolve(parentValue, args) {
-        basket.total = basket.products.reduce((a, b) => {
-          return a + b.price;
-        }, 0);
-
-        return basket.total;
+        console.log(parentValue);
+        return basketResolvers.getBasketProductsById(parentValue.id)
+            .then( response => response.data )
+            .then( products => products.reduce((a, b) => {
+              return a + b.price;
+            }, 0));
       } 
     }
   })
 });
+
+export default {
+  BasketType
+};
